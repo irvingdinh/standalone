@@ -1,3 +1,9 @@
-export default function AdminPage() {
-  return <div>Admin Panel</div>;
+import { AppLayout } from '@/modules/core/components/AppLayout';
+
+export default function Page() {
+  return (
+    <AppLayout>
+      <div>Admin Panel</div>
+    </AppLayout>
+  );
 }
