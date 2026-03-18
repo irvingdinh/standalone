@@ -5,7 +5,12 @@ import { FormEvent, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { login } from '@/modules/auth/api';
 
@@ -44,9 +49,7 @@ export const LoginForm = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
-              {error && (
-                <FieldError>{error}</FieldError>
-              )}
+              {error && <FieldError>{error}</FieldError>}
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
