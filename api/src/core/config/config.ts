@@ -10,6 +10,14 @@ export interface AppConfig {
   dir: {
     data: string;
   };
+  admin: {
+    jwt: {
+      secret: string;
+      accessTtlSeconds: number;
+      refreshTtlSeconds: number;
+      refreshRenewWindowSeconds: number;
+    };
+  };
 }
 
 function ensureDataDir(): string {
@@ -26,6 +34,14 @@ export const config = (): { root: AppConfig } => ({
     },
     dir: {
       data: ensureDataDir(),
+    },
+    admin: {
+      jwt: {
+        secret: process.env.ADMIN_JWT_SECRET || 'admin-jwt-secret',
+        accessTtlSeconds: 5 * 60,
+        refreshTtlSeconds: 30 * 24 * 60 * 60,
+        refreshRenewWindowSeconds: 7 * 24 * 60 * 60,
+      },
     },
   },
 });

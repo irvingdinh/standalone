@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
 import type { AppConfig } from '../config/config.js';
+import { AdminEntity } from '../entities/admin.entity.js';
 
 export const typeormForRoot = TypeOrmModule.forRootAsync({
   useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
@@ -10,7 +11,7 @@ export const typeormForRoot = TypeOrmModule.forRootAsync({
     return {
       type: 'sqlite',
       database: join(config.dir.data, 'standalone.db'),
-      entities: [],
+      entities: [AdminEntity],
       synchronize: true,
     };
   },
