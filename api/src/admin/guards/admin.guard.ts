@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Request, Response } from 'express';
 import { Repository } from 'typeorm';
 
-import { AdminEntity } from '../../core/entities/admin.entity.js';
-import { AuthService } from '../services/auth.service.js';
+import { AdminEntity } from '../../core/entities/admin.entity';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {

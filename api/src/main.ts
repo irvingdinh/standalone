@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 
-import { AppModule } from './app.module.js';
-import type { AppConfig } from './core/config/config.js';
+import { AppModule } from './app.module';
+import type { AppConfig } from './core/config/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

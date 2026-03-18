@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import type { Request } from 'express';
 import { Repository } from 'typeorm';
 
-import { AdminEntity } from '../../../core/entities/admin.entity.js';
-import { AdminGuard } from '../../guards/admin.guard.js';
+import { AdminEntity } from '../../../core/entities/admin.entity';
+import { AdminGuard } from '../../guards/admin.guard';
 
 @Controller()
 export class IndexController {

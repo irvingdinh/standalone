@@ -3,8 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import bcrypt from 'bcryptjs';
 import { DataSource } from 'typeorm';
 
-import { AppModule } from '../app.module.js';
-import { AdminEntity } from '../core/entities/admin.entity.js';
+import { AppModule } from '../app.module';
+import { AdminEntity } from '../core/entities/admin.entity';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

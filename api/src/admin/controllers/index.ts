@@ -1,3 +1,3 @@
-import { authControllers } from './auth/index.js';
+import { authControllers } from './auth';
 
 export const controllers = [...authControllers];

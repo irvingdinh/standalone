@@ -2,8 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
-import type { AppConfig } from '../config/config.js';
-import { AdminEntity } from '../entities/admin.entity.js';
+import type { AppConfig } from '../config/config';
+import { AdminEntity } from '../entities/admin.entity';
 
 export const typeormForRoot = TypeOrmModule.forRootAsync({
   useFactory: (configService: ConfigService): TypeOrmModuleOptions => {

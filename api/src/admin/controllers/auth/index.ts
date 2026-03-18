@@ -1,6 +1,6 @@
-import { IndexController } from './index.controller.js';
-import { LoginController } from './login.controller.js';
-import { LogoutController } from './logout.controller.js';
+import { IndexController } from './index.controller';
+import { LoginController } from './login.controller';
+import { LogoutController } from './logout.controller';
 
 export const authControllers = [
   IndexController,

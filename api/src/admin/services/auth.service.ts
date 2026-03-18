@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import type { AppConfig } from '../../core/config/config.js';
+import type { AppConfig } from '../../core/config/config';
 
 export interface AdminTokenPayload {
   sub: string;

@@ -1,3 +1,3 @@
-import { AuthService } from './auth.service.js';
+import { AuthService } from './auth.service';
 
 export const services = [AuthService];

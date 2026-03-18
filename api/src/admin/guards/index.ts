@@ -1,3 +1,3 @@
-import { AdminGuard } from './admin.guard.js';
+import { AdminGuard } from './admin.guard';
 
 export const guards = [AdminGuard];

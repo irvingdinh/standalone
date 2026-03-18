@@ -1,5 +1,5 @@
-import { configModule } from './config.module.js';
-import { eventEmitterModule } from './event-emitter.module.js';
-import { typeormForRoot } from './typeorm.module.js';
+import { configModule } from './config.module';
+import { eventEmitterModule } from './event-emitter.module';
+import { typeormForRoot } from './typeorm.module';
 
 export const modules = [configModule, eventEmitterModule, typeormForRoot];
