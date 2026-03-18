@@ -1,4 +1,4 @@
-.PHONY: dev kill check
+.PHONY: dev kill check api.seed
 
 check:
 	cd api && npm run format && npm run lint && npm run build
@@ -8,3 +8,6 @@ kill:
 
 dev: kill
 	cd api && npm run start:dev
+
+api.seed:
+	cd api && npx nest start --entryFile scripts/seed.script
