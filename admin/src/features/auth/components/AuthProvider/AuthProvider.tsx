@@ -5,7 +5,6 @@ import {
   createContext,
   ReactNode,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -17,13 +16,15 @@ import {
   logout as logoutApi,
 } from '@/features/auth/api';
 
-type AuthContextValue = {
+export type AuthContextValue = {
   user: AdminUser | null;
   isLoading: boolean;
   logout: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+export const AuthContext = createContext<AuthContextValue | undefined>(
+  undefined,
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -52,12 +53,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   return <AuthContext value={value}>{children}</AuthContext>;
-}
-
-export function useAuth(): AuthContextValue {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
 }

@@ -3,6 +3,7 @@
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/features/auth/components/AuthProvider';
+import { useBreadcrumbs } from '@/features/core/components/BreadcrumbProvider';
 import {
   SettingsCard,
   SettingsCardContent,
@@ -15,6 +16,8 @@ import { ChangePasswordForm } from './ChangePasswordForm';
 
 export function ProfilePage() {
   const { user } = useAuth();
+
+  useBreadcrumbs([{ label: 'Profile' }]);
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
