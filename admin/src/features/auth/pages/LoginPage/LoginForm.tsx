@@ -58,7 +58,7 @@ export const LoginForm = () => {
                   type="email"
                   autoComplete="email"
                   spellCheck={false}
-                  placeholder="m@example.com"
+                  placeholder="john.doe@example.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

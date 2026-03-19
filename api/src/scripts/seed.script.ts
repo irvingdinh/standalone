@@ -20,7 +20,7 @@ async function seedAdmins(app: INestApplication) {
   const dataSource = app.get(DataSource);
   const adminRepository = dataSource.getRepository(AdminEntity);
 
-  const email = 'irving@standalone.local';
+  const email = 'john.doe@example.com';
   const existing = await adminRepository.findOne({ where: { email } });
 
   if (existing) {
@@ -28,7 +28,7 @@ async function seedAdmins(app: INestApplication) {
   } else {
     const admin = adminRepository.create({
       email,
-      passwordHash: await bcrypt.hash('letmein', 10),
+      passwordHash: await bcrypt.hash('password', 10),
     });
     await adminRepository.save(admin);
     console.log(`Admin "${email}" created.`);

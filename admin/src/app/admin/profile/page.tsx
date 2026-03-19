@@ -1,5 +1,5 @@
-import { ProfilePage } from '@/features/auth/pages/ProfilePage';
 import { AppLayout } from '@/features/core/components/AppLayout';
+import { ProfilePage } from '@/features/profile/pages/ProfilePage';
 
 export default function Page() {
   return (
