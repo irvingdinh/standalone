@@ -3,7 +3,7 @@ export type AdminResponse = {
     id: string;
     email: string;
     displayName: string;
-    isActive: boolean;
+    deletedAt: Date | null;
     createdAt: Date;
     updatedAt: Date;
     role: {

@@ -2,7 +2,7 @@ export type AdminUser = {
   id: string;
   email: string;
   displayName: string;
-  isActive: boolean;
+  deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
   role: {
@@ -34,7 +34,10 @@ export async function login(
     body: JSON.stringify({ email, password }),
   });
   if (!res.ok) {
-    if (res.status === 401) throw new Error('Invalid credentials');
+    if (res.status === 401) {
+      const json = await res.json().catch(() => null);
+      throw new Error(json?.message ?? 'Invalid credentials');
+    }
     throw new Error('Login failed');
   }
   const json: AdminUserResponse = await res.json();

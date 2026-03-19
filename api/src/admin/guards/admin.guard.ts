@@ -54,7 +54,7 @@ export class AdminGuard implements CanActivate {
           relations: ['role', 'role.scopes'],
         });
 
-        if (!admin || !admin.isActive) {
+        if (!admin || admin.deletedAt !== null) {
           this.authService.clearCookies(response);
           throw new UnauthorizedException();
         }
@@ -99,7 +99,7 @@ export class AdminGuard implements CanActivate {
       relations: ['role', 'role.scopes'],
     });
 
-    if (!admin || !admin.isActive) {
+    if (!admin || admin.deletedAt !== null) {
       this.authService.clearCookies(response);
       throw new UnauthorizedException();
     }

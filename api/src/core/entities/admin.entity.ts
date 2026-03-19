@@ -31,12 +31,17 @@ export class AdminEntity {
   @Column({ name: 'password_hash' })
   passwordHash: string;
 
-  @Column({ name: 'is_active', default: true })
-  isActive: boolean;
-
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({
+    name: 'deleted_at',
+    type: 'datetime',
+    nullable: true,
+    default: null,
+  })
+  deletedAt: Date | null;
 }

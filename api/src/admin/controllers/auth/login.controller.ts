@@ -50,8 +50,8 @@ export class LoginController {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    if (!admin.isActive) {
-      throw new UnauthorizedException('Invalid credentials');
+    if (admin.deletedAt !== null) {
+      throw new UnauthorizedException('Account deactivated');
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -74,7 +74,7 @@ export class LoginController {
         id: admin.id,
         email: admin.email,
         displayName: admin.displayName,
-        isActive: admin.isActive,
+        deletedAt: admin.deletedAt,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
         role: {

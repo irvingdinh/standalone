@@ -31,7 +31,7 @@ export class IndexController {
         id: admin.id,
         email: admin.email,
         displayName: admin.displayName,
-        isActive: admin.isActive,
+        deletedAt: admin.deletedAt,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
         role: {
