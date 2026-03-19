@@ -4,6 +4,8 @@ import { join } from 'path';
 
 import type { AppConfig } from '../config/config';
 import { AdminEntity } from '../entities/admin.entity';
+import { AdminRoleEntity } from '../entities/admin-role.entity';
+import { AdminRoleScopeEntity } from '../entities/admin-role-scope.entity';
 
 export const typeormForRoot = TypeOrmModule.forRootAsync({
   useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
@@ -11,7 +13,7 @@ export const typeormForRoot = TypeOrmModule.forRootAsync({
     return {
       type: 'sqlite',
       database: join(config.dir.data, 'standalone.db'),
-      entities: [AdminEntity],
+      entities: [AdminEntity, AdminRoleEntity, AdminRoleScopeEntity],
       synchronize: true,
     };
   },

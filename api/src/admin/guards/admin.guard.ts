@@ -10,11 +10,13 @@ import { Repository } from 'typeorm';
 
 import { AdminEntity } from '../../core/entities/admin.entity';
 import { AuthService } from '../services/auth.service';
+import { RolesService } from '../services/roles.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor(
     private readonly authService: AuthService,
+    private readonly rolesService: RolesService,
     @InjectRepository(AdminEntity)
     private readonly adminRepository: Repository<AdminEntity>,
   ) {}
@@ -39,10 +41,17 @@ export class AdminGuard implements CanActivate {
       : null;
 
     if (accessPayload) {
+      // Scopes are embedded in the JWT at sign time and may become stale
+      // if the admin's role changes before the token expires. This is
+      // acceptable for an admin panel — the staleness window is bounded
+      // by the access token TTL, and scopes are refreshed on token rotation.
+      let adminScopes: string[] = accessPayload.scopes ?? [];
+
       // Scenario 6: Access valid but refresh near expiry — rotate both
       if (refreshToken && this.authService.isRefreshNearExpiry(refreshToken)) {
         const admin = await this.adminRepository.findOne({
           where: { id: accessPayload.sub },
+          relations: ['role', 'role.scopes'],
         });
 
         if (!admin || !admin.isActive) {
@@ -50,19 +59,23 @@ export class AdminGuard implements CanActivate {
           throw new UnauthorizedException();
         }
 
+        const scopes = this.rolesService.computeScopes(admin);
+        adminScopes = scopes;
+
         this.authService.setAccessCookie(
           response,
-          this.authService.signAccessToken(admin.id),
+          this.authService.signAccessToken(admin.id, scopes),
         );
         this.authService.setRefreshCookie(
           response,
-          this.authService.signRefreshToken(admin.id),
+          this.authService.signRefreshToken(admin.id, scopes),
         );
       }
 
       // Scenario 5: Both valid — continue
       (request as unknown as Record<string, unknown>).adminId =
         accessPayload.sub;
+      (request as unknown as Record<string, unknown>).adminScopes = adminScopes;
       return true;
     }
 
@@ -83,6 +96,7 @@ export class AdminGuard implements CanActivate {
     // Scenario 4: Access expired + refresh valid — check isActive, refresh
     const admin = await this.adminRepository.findOne({
       where: { id: refreshPayload.sub },
+      relations: ['role', 'role.scopes'],
     });
 
     if (!admin || !admin.isActive) {
@@ -90,21 +104,24 @@ export class AdminGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
+    const scopes = this.rolesService.computeScopes(admin);
+
     this.authService.setAccessCookie(
       response,
-      this.authService.signAccessToken(admin.id),
+      this.authService.signAccessToken(admin.id, scopes),
     );
 
     // Also rotate refresh if near expiry
     if (this.authService.isRefreshNearExpiry(refreshToken)) {
       this.authService.setRefreshCookie(
         response,
-        this.authService.signRefreshToken(admin.id),
+        this.authService.signRefreshToken(admin.id, scopes),
       );
     }
 
     (request as unknown as Record<string, unknown>).adminId =
       refreshPayload.sub;
+    (request as unknown as Record<string, unknown>).adminScopes = scopes;
     return true;
   }
 }

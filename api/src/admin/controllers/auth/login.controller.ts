@@ -15,6 +15,8 @@ import { Repository } from 'typeorm';
 
 import { AdminEntity } from '../../../core/entities/admin.entity';
 import { AuthService } from '../../services/auth.service';
+import { RolesService } from '../../services/roles.service';
+import { AdminResponse } from '../../types/admin.type';
 
 class LoginDto {
   @IsEmail()
@@ -30,6 +32,7 @@ export class LoginController {
     @InjectRepository(AdminEntity)
     private readonly adminRepository: Repository<AdminEntity>,
     private readonly authService: AuthService,
+    private readonly rolesService: RolesService,
   ) {}
 
   @Post('/api/admin/auth/login')
@@ -37,9 +40,10 @@ export class LoginController {
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AdminResponse> {
     const admin = await this.adminRepository.findOne({
       where: { email: dto.email },
+      relations: ['role', 'role.scopes'],
     });
 
     if (!admin) {
@@ -58,8 +62,9 @@ export class LoginController {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const accessToken = this.authService.signAccessToken(admin.id);
-    const refreshToken = this.authService.signRefreshToken(admin.id);
+    const scopes = this.rolesService.computeScopes(admin);
+    const accessToken = this.authService.signAccessToken(admin.id, scopes);
+    const refreshToken = this.authService.signRefreshToken(admin.id, scopes);
 
     this.authService.setAccessCookie(res, accessToken);
     this.authService.setRefreshCookie(res, refreshToken);
@@ -72,6 +77,11 @@ export class LoginController {
         isActive: admin.isActive,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
+        role: {
+          id: admin.role.id,
+          name: admin.role.name,
+        },
+        scopes,
       },
     };
   }

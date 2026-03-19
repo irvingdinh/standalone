@@ -13,6 +13,8 @@ import { Repository } from 'typeorm';
 import { AdminEntity } from '../../../core/entities/admin.entity';
 import { AdminId } from '../../decorators';
 import { AdminGuard } from '../../guards/admin.guard';
+import { RolesService } from '../../services/roles.service';
+import { AdminResponse } from '../../types/admin.type';
 
 class UpdateProfileDto {
   @IsString()
@@ -26,6 +28,7 @@ export class UpdateController {
   constructor(
     @InjectRepository(AdminEntity)
     private readonly adminRepository: Repository<AdminEntity>,
+    private readonly rolesService: RolesService,
   ) {}
 
   @Put('/api/admin/profile')
@@ -34,13 +37,16 @@ export class UpdateController {
   async updateProfile(
     @Body() dto: UpdateProfileDto,
     @AdminId() adminId: string,
-  ) {
+  ): Promise<AdminResponse> {
     const admin = await this.adminRepository.findOneOrFail({
       where: { id: adminId },
+      relations: ['role', 'role.scopes'],
     });
 
     admin.displayName = dto.displayName;
     await this.adminRepository.save(admin);
+
+    const scopes = this.rolesService.computeScopes(admin);
 
     return {
       data: {
@@ -50,6 +56,11 @@ export class UpdateController {
         isActive: admin.isActive,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
+        role: {
+          id: admin.role.id,
+          name: admin.role.name,
+        },
+        scopes,
       },
     };
   }

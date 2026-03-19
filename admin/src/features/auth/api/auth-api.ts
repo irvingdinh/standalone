@@ -5,6 +5,11 @@ export type AdminUser = {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  role: {
+    id: string;
+    name: string;
+  };
+  scopes: string[];
 };
 
 type AdminUserResponse = {

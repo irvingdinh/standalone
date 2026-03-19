@@ -7,6 +7,7 @@ import type { AppConfig } from '../../core/config/config';
 
 export interface AdminTokenPayload {
   sub: string;
+  scopes: string[];
 }
 
 @Injectable()
@@ -24,14 +25,14 @@ export class AuthService {
     this.refreshRenewWindow = config.admin.jwt.refreshRenewWindowSeconds;
   }
 
-  signAccessToken(adminId: string): string {
-    return jwt.sign({ sub: adminId }, this.secret, {
+  signAccessToken(adminId: string, scopes: string[]): string {
+    return jwt.sign({ sub: adminId, scopes }, this.secret, {
       expiresIn: this.accessTtl,
     });
   }
 
-  signRefreshToken(adminId: string): string {
-    return jwt.sign({ sub: adminId }, this.secret, {
+  signRefreshToken(adminId: string, scopes: string[]): string {
+    return jwt.sign({ sub: adminId, scopes }, this.secret, {
       expiresIn: this.refreshTtl,
     });
   }
