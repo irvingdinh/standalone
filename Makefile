@@ -13,8 +13,9 @@ kill:
 	@lsof -ti :25702 | xargs kill -9 2>/dev/null || true
 
 dev: kill
-	cd api && npm run start:dev &
-	cd admin && bun run dev &
+	trap '(lsof -ti :25710; lsof -ti :25702) | xargs kill 2>/dev/null; wait' INT TERM EXIT; \
+	(cd api && npm run start:dev) & \
+	(cd admin && bun run dev) & \
 	wait
 
 api.seed:
