@@ -28,6 +28,7 @@ async function seedAdmins(app: INestApplication) {
   } else {
     const admin = adminRepository.create({
       email,
+      displayName: 'John Doe',
       passwordHash: await bcrypt.hash('password', 10),
     });
     await adminRepository.save(admin);

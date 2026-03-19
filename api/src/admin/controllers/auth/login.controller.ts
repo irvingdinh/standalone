@@ -68,6 +68,7 @@ export class LoginController {
       data: {
         id: admin.id,
         email: admin.email,
+        displayName: admin.displayName,
         isActive: admin.isActive,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,

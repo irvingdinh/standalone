@@ -1,1 +1,1 @@
-export { changePassword } from './profile-api';
+export { changePassword, updateProfile } from './profile-api';

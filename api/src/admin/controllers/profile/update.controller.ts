@@ -4,58 +4,53 @@ import {
   HttpCode,
   HttpStatus,
   Put,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import bcrypt from 'bcryptjs';
-import { IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { Repository } from 'typeorm';
 
 import { AdminEntity } from '../../../core/entities/admin.entity';
 import { AdminId } from '../../decorators';
 import { AdminGuard } from '../../guards/admin.guard';
 
-class ChangePasswordDto {
+class UpdateProfileDto {
   @IsString()
-  currentPassword: string;
-
-  @IsString()
-  @MinLength(8)
-  newPassword: string;
+  @IsNotEmpty()
+  @MaxLength(255)
+  displayName: string;
 }
 
 @Controller()
-export class ChangePasswordController {
+export class UpdateController {
   constructor(
     @InjectRepository(AdminEntity)
     private readonly adminRepository: Repository<AdminEntity>,
   ) {}
 
-  @Put('/api/admin/auth/change-password')
+  @Put('/api/admin/profile')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AdminGuard)
-  async changePassword(
-    @Body() dto: ChangePasswordDto,
+  async updateProfile(
+    @Body() dto: UpdateProfileDto,
     @AdminId() adminId: string,
   ) {
     const admin = await this.adminRepository.findOneOrFail({
       where: { id: adminId },
     });
 
-    const isPasswordValid = await bcrypt.compare(
-      dto.currentPassword,
-      admin.passwordHash,
-    );
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Current password is incorrect');
-    }
-
-    admin.passwordHash = await bcrypt.hash(dto.newPassword, 10);
+    admin.displayName = dto.displayName;
     await this.adminRepository.save(admin);
 
     return {
-      data: { message: 'Password changed successfully' },
+      data: {
+        id: admin.id,
+        email: admin.email,
+        displayName: admin.displayName,
+        isActive: admin.isActive,
+        createdAt: admin.createdAt,
+        updatedAt: admin.updatedAt,
+      },
     };
   }
 }

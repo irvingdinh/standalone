@@ -22,7 +22,13 @@ import {
 } from '@/components/ui/sidebar';
 import { useAuth } from '@/features/auth/components/AuthProvider';
 
-function UserAvatar({ email }: { email: string }) {
+function UserAvatar({
+  displayName,
+  email,
+}: {
+  displayName: string;
+  email: string;
+}) {
   return (
     <>
       <Avatar className="h-8 w-8 rounded-lg">
@@ -31,7 +37,7 @@ function UserAvatar({ email }: { email: string }) {
         </AvatarFallback>
       </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="truncate font-medium">Administrator</span>
+        <span className="truncate font-medium">{displayName}</span>
         <span className="truncate text-xs">{email}</span>
       </div>
     </>
@@ -59,7 +65,7 @@ export function UserSidebarMenu() {
                 />
               }
             >
-              <UserAvatar email={user.email} />
+              <UserAvatar displayName={user.displayName} email={user.email} />
               <ChevronsUpDown className="ml-auto size-4" aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -71,7 +77,10 @@ export function UserSidebarMenu() {
               <DropdownMenuGroup>
                 <DropdownMenuLabel className="p-0 font-normal">
                   <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserAvatar email={user.email} />
+                    <UserAvatar
+                      displayName={user.displayName}
+                      email={user.email}
+                    />
                   </div>
                 </DropdownMenuLabel>
               </DropdownMenuGroup>

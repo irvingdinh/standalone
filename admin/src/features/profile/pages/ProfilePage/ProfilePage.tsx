@@ -13,6 +13,7 @@ import {
 } from '@/features/core/components/SettingsCard';
 
 import { ChangePasswordForm } from './ChangePasswordForm';
+import { EditProfileForm } from './EditProfileForm';
 
 export function ProfilePage() {
   const { user } = useAuth();
@@ -45,6 +46,7 @@ export function ProfilePage() {
             </FieldGroup>
           </SettingsCardContent>
         </SettingsCard>
+        <EditProfileForm />
         <ChangePasswordForm />
       </div>
     </div>

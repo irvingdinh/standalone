@@ -20,6 +20,7 @@ export type AuthContextValue = {
   user: AdminUser | null;
   isLoading: boolean;
   logout: () => Promise<void>;
+  setUser: (user: AdminUser) => void;
 };
 
 export const AuthContext = createContext<AuthContextValue | undefined>(
@@ -48,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [router]);
 
   const value = useMemo(
-    () => ({ user, isLoading, logout }),
+    () => ({ user, isLoading, logout, setUser }),
     [user, isLoading, logout],
   );
 
