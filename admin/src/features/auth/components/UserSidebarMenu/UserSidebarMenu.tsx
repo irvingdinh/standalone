@@ -20,7 +20,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useAuth } from '@/modules/auth/components/AuthProvider';
+import { useAuth } from '@/features/auth/components/AuthProvider';
 
 function UserAvatar({ email }: { email: string }) {
   return (

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { LoginForm } from '@/modules/auth/pages/LoginPage/LoginForm';
+import { LoginForm } from '@/features/auth/pages/LoginPage/LoginForm';
 
 export const LoginPage = () => {
   return (

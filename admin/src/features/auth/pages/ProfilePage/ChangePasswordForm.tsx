@@ -11,7 +11,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { changePassword } from '@/modules/auth/api';
+import { changePassword } from '@/features/auth/api';
 import {
   SettingsCard,
   SettingsCardContent,
@@ -19,7 +19,7 @@ import {
   SettingsCardFooter,
   SettingsCardHeader,
   SettingsCardTitle,
-} from '@/modules/core/components/SettingsCard';
+} from '@/features/core/components/SettingsCard';
 
 export function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState('');

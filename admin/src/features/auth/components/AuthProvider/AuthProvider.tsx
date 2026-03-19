@@ -15,7 +15,7 @@ import {
   AdminUser,
   checkSession,
   logout as logoutApi,
-} from '@/modules/auth/api';
+} from '@/features/auth/api';
 
 type AuthContextValue = {
   user: AdminUser | null;

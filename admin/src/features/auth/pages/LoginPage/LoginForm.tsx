@@ -12,7 +12,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { login } from '@/modules/auth/api';
+import { login } from '@/features/auth/api';
 
 export const LoginForm = () => {
   const router = useRouter();

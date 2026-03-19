@@ -1,4 +1,4 @@
-import { AppLayout } from '@/modules/core/components/AppLayout';
+import { AppLayout } from '@/features/core/components/AppLayout';
 
 export default function Page() {
   return (

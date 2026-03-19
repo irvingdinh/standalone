@@ -2,14 +2,14 @@
 
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/modules/auth/components/AuthProvider';
+import { useAuth } from '@/features/auth/components/AuthProvider';
 import {
   SettingsCard,
   SettingsCardContent,
   SettingsCardDescription,
   SettingsCardHeader,
   SettingsCardTitle,
-} from '@/modules/core/components/SettingsCard';
+} from '@/features/core/components/SettingsCard';
 
 import { ChangePasswordForm } from './ChangePasswordForm';
 

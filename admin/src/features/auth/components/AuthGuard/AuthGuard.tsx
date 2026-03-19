@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import { useAuth } from '@/modules/auth/components/AuthProvider';
+import { useAuth } from '@/features/auth/components/AuthProvider';
 
 export function AuthGuard({ children }: { children: ReactNode }) {
   const { user, isLoading } = useAuth();

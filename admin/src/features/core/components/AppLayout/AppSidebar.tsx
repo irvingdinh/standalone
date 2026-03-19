@@ -3,7 +3,7 @@ import {
   SidebarContent,
   SidebarHeader,
 } from '@/components/ui/sidebar';
-import { UserSidebarMenu } from '@/modules/auth/components/UserSidebarMenu';
+import { UserSidebarMenu } from '@/features/auth/components/UserSidebarMenu';
 
 export const AppSidebar = () => {
   return (
