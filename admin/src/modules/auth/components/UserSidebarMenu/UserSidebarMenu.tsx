@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronsUpDown, LogOut, UserRound } from 'lucide-react';
+import { ChevronsUpDown, KeyRound, LogOut, UserRound } from 'lucide-react';
+import Link from 'next/link';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
@@ -73,6 +74,13 @@ export function UserSidebarMenu() {
                     <UserAvatar email={user.email} />
                   </div>
                 </DropdownMenuLabel>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem render={<Link href="/admin/profile" />}>
+                  <KeyRound aria-hidden="true" />
+                  Profile
+                </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logout}>

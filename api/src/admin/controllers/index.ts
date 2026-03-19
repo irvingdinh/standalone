@@ -1,3 +1,4 @@
 import { authControllers } from './auth';
+import { profileControllers } from './profile';
 
-export const controllers = [...authControllers];
+export const controllers = [...authControllers, ...profileControllers];
