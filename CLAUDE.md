@@ -45,6 +45,13 @@ into the main conversation context.** Instead, spawn an Explore subagent to disc
 read from them on-demand. This keeps the main context lean.
 
 - `.idea/github.com/shadcn-ui/ui` — shadcn/ui component library. Consult for component APIs, patterns, and implementation details when building UI.
+- `.idea/github.com/nestjs/nest` — NestJS framework. Consult for module, controller, guard, decorator, and pipe patterns.
+- `.idea/github.com/typeorm/typeorm` — TypeORM. Consult for entity definitions, repository patterns, query builder, and migration APIs.
+- `.idea/github.com/typestack/class-validator` — class-validator. Consult for available validation decorators and custom validator patterns.
+- `.idea/github.com/typestack/class-transformer` — class-transformer. Consult for transformation decorators (Expose, Exclude, Transform, Type).
+- `.idea/github.com/emilkowalski/sonner` — Sonner toast library. Consult for toast API and customization options.
+- `.idea/github.com/pacocoursey/next-themes` — next-themes. Consult for theme provider setup and usage patterns.
+- `.idea/github.com/lucide-icons/lucide` — Lucide icons. Consult for available icon names and React component usage.
 
 **Convention for new dependencies:** When you need to reference a dependency that is not yet
 cloned locally, shallow-clone it into `.idea/github.com/{owner}/{repo}`
