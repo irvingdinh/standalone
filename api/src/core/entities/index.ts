@@ -3,4 +3,4 @@
  * `npx drizzle-kit generate` — SQL is written to `database/migrations/`.
  */
 
-export {};
+export * from './admin.entity.js';
